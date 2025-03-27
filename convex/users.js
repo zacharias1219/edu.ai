@@ -17,8 +17,12 @@ export const createUser=mutation({
                 credits:50000
             }
             const result = await ctx.db.insert('users', {
-                
+                ...data
             })
+
+            console.log(result);
+            return data;
         }
+        return userData[0];
     }
 })
