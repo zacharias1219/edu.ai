@@ -2,11 +2,13 @@
 import { useUser } from '@stackframe/stack'
 import { useMutation } from 'convex/react'
 import { api } from "@/convex/_generated/api"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { UserContext } from './_context/UserContext'
 
 function AuthProvider({children}) {
   const user = useUser();
   const CreateUser = useMutation(api.users.CreateUser);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
       if (!user) {
@@ -21,10 +23,13 @@ function AuthProvider({children}) {
       email:user.primaryEmail
     });
     console.log(result);
+    setUserData(result);
   }
   return (
     <div>
+      <UserContext.Provider value={{userData, setUserData}}>
         {children}
+      </UserContext.Provider>
     </div>
   )
 }
