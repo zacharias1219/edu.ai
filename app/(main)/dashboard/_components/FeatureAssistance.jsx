@@ -1,4 +1,5 @@
 "use client"
+import { BlurFade } from '@/components/magicui/blur-fade';
 import { Button } from '@/components/ui/button';
 import { ExpertList } from '@/services/Options';
 import { useUser } from '@stackframe/stack'
@@ -17,10 +18,12 @@ function FeatureAssistance() {
       </div>
       <div className='grid grid-cols-2 lg:grid-cols-5 gap-10mt-10'>
         {ExpertList.map((expert, index) => (
-          <div key={index} className='p-3 bg-secondary rounded-3xl flex flex-col justify-between items-center border-b border-gray-100'>
-            <Image src={expert.icon} alt={expert.name} width={150} height={150} className="w-[70px] h-[70px]"/>
-            <h2 className='mt-2 '>{expert.name}</h2>
-          </div>
+          <BlurFade key={expert.icon} delay={0.25 + index * 0.1} inView>
+            <div key={index} className='p-3 bg-secondary rounded-3xl flex flex-col justify-between items-center border-b border-gray-100'>
+              <Image src={expert.icon} alt={expert.name} width={150} height={150} className="w-[70px] h-[70px] hover:rotate-12 cursor-pointer transition-all"/>
+              <h2 className='mt-2 '>{expert.name}</h2>
+            </div>
+          </BlurFade>
         ))}
       </div>
     </div>
